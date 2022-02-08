@@ -1,0 +1,25 @@
+{
+  "name": "p3_mairre_sebastien",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./scss/main.scss:./public/main.css --style compressed",
+    "prefix": "postcss ./public/main.css --use autoprefixer -d ./public/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/M-Sebastien/M-Sebastien-SebastienMairre_3_28112021.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "bugs": {
+    "url": "https://github.com/M-Sebastien/M-Sebastien-SebastienMairre_3_28112021/issues"
+  },
+  "homepage": "https://github.com/M-Sebastien/M-Sebastien-SebastienMairre_3_28112021#readme",
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "sass": "^1.45.0"
+  }
+}

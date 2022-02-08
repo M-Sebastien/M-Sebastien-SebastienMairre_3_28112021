@@ -1,0 +1,87 @@
+@use "sass:color";
+
+@import "./variables.scss";
+
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media screen and (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin contentCenter {
+  display: flex;
+  justify-content: center;
+  padding: 1em 0;
+}
+
+@mixin transitionButton {
+  &:hover {
+    box-shadow: 0 2px 10px -2px getValue("black");
+    background: linear-gradient(
+      color.scale(getValue("secondary-color"), $lightness: 10%),
+      (color.scale(getValue("primary-color"), $lightness: 10%))
+    );
+  }
+}
+
+@mixin linear-gradient {
+  background: linear-gradient(
+    getValue("secondary-color"),
+    getValue("primary-color")
+  );
+}
+
+@mixin box-shadow {
+  background-color: getValue("white");
+  width: 90%;
+  border-radius: 20px;
+  box-shadow: 0px 5px 5px getValue("grey");
+}
+
+@mixin heart-animation {
+  position: relative;
+  &:hover {
+    span.fas {
+      opacity: 1;
+      color: getValue("primary-color");
+    }
+    span.far {
+      opacity: 0;
+    }
+  }
+  span {
+    position: absolute;
+    right: 1em;
+    top: -0.5em;
+    transition: 0.3s;
+    &.fas {
+      opacity: 0;
+    }
+  }
+}
+
+@mixin animation-menu {
+  @for $i from 1 through 5 {
+    &__item:nth-child(#{$i}) {
+      animation: loading-item 0.75s forwards;
+      animation-delay: #{$i * 0.25}s;
+    }
+  }
+
+  @keyframes loading-item {
+    0% {
+      transform: translateY(25px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}

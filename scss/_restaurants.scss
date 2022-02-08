@@ -1,0 +1,200 @@
+@use "sass:color";
+
+@import "./_mixins.scss";
+@import "./functions.scss";
+@import "./variables.scss";
+
+/* ========== HEADER ========== */
+
+header {
+  > a {
+    position: absolute;
+    top: 1.15em;
+    left: 1.15em;
+    font-size: getValue("md");
+  }
+}
+
+/* ========== MAIN ========== */
+
+main {
+  background-color: getValue(bg-light);
+}
+
+/* ========== BANNER ========== */
+
+main > img {
+  width: 100%;
+  max-height: 20.125em;
+  object-fit: cover;
+}
+
+/* ========== RESTAURANT ========== */
+
+.restaurant {
+  position: relative;
+  margin-top: -2.5em;
+  border-top-right-radius: 35px;
+  border-top-left-radius: 35px;
+  padding: 1.75em 0 4em 1.25em;
+  background: getValue("bg-light");
+  @for $i from 1 through 3 {
+    .menu:nth-child(#{$i}) {
+      padding-bottom: 1em;
+    }
+  }
+}
+
+.restaurant__title > h1 {
+  font-family: "Shrikhand", "Trebuchet MS";
+  font-weight: normal;
+  font-size: getValue("xl");
+  padding-bottom: 1em;
+}
+
+.hearts {
+  @include heart-animation;
+  font-size: getValue("lg");
+  bottom: 1.9em;
+  @include tablet {
+    font-size: getValue("xl");
+  }
+  @include laptop {
+    font-size: getValue("xxl");
+    & .fa-heart {
+      top: 0;
+    }
+  }
+}
+
+/* ========== MENU ========== */
+
+.restaurant__dishes {
+  @include laptop {
+    display: flex;
+    width: auto;
+    justify-content: space-evenly;
+  }
+}
+
+.menu {
+  @include animation-menu;
+  @include tablet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @include laptop {
+    width: 30%;
+  }
+}
+
+.menu__course {
+  position: relative;
+  padding: 0;
+  font-weight: normal;
+  font-size: getValue("sm");
+  width: fit-content;
+  margin-bottom: 1.2em;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -0.4em;
+    left: 0;
+    width: 60%;
+    border-bottom: 3px solid getValue("tertiary-color");
+  }
+}
+
+.menu__item {
+  opacity: 0;
+  @include box-shadow;
+  padding: 0.8em 2em 0.8em 0.6em;
+  margin-bottom: 1em;
+  width: 95%;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  @include tablet {
+    max-width: 655px;
+  }
+  @include laptop {
+    max-width: 455px;
+  }
+
+  &__checkmark {
+    position: absolute;
+    right: -3.8em;
+    bottom: 0;
+    background-color: getValue("tertiary-color");
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit;
+    min-width: 60px;
+    height: 100%;
+    transition: 0.3s ease-in-out;
+    > i {
+      color: getValue("white");
+      font-size: getValue("md");
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: rotate(0deg);
+      transition: 0.7s;
+    }
+  }
+  &:hover &__checkmark {
+    right: 0px;
+    > i {
+      transform: rotate(360deg);
+    }
+  }
+
+  &:hover &__name {
+    padding-right: 3.8em;
+  }
+  &__name {
+    font-weight: bold;
+    font-size: getValue("sm");
+    padding-bottom: 0.25em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+  }
+
+  &__sub {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 0.1em;
+    transition: 0.3s ease-in-out;
+  }
+  &:hover &__sub {
+    padding-right: 60px;
+  }
+
+  &__description {
+    font-size: smaller;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__price {
+    font-weight: bold;
+  }
+}
+
+/* ========== CTA ========== */
+
+.order {
+  display: flex;
+  justify-content: center;
+  padding-top: 1.6em;
+}
+
+.cta.order__btn {
+  margin-bottom: 0;
+  padding: 1em 3em;
+}

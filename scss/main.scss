@@ -1,0 +1,385 @@
+@use "sass:color";
+
+@import "./_mixins.scss";
+@import "./functions.scss";
+@import "./variables.scss";
+@import "./restaurants.scss";
+
+/* ========== Border-box rules ========== */
+html {
+  /* Set border-box as the global default */
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  /* Allow each element to override */
+  box-sizing: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+/* ========== LOADER ========== */
+
+#loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  background-color: getValue("white");
+  animation: loader-fading 3s cubic-bezier(0, -0.72, 1, 0.98) forwards;
+  @keyframes loader-fading {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      z-index: -1;
+    }
+  }
+}
+
+#loader {
+  display: block;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: getValue("primary-color");
+  animation: spin 2s linear infinite;
+}
+
+#loader:before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: getValue("secondary-color");
+  animation: spin 3s linear infinite;
+}
+
+#loader:after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: getValue("tertiary-color");
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* ========== MAIN CONTENT ========== */
+
+body {
+  font-family: "Roboto", "Trebuchet MS";
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+  padding: 1.75em 0 0 1em;
+}
+
+h3 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a,
+a:visited,
+a:link {
+  text-decoration: none;
+  outline: none;
+  color: inherit;
+}
+
+/* ========== HEADER ========== */
+
+.div-logo,
+.location,
+.explore {
+  @include contentCenter;
+}
+
+/* ========== LOCATION ========== */
+
+.location {
+  background-color: getValue("bg-dark");
+  font-weight: bold;
+  font-size: getValue("sm");
+  box-shadow: inset 0px 2px 5px getValue("grey");
+}
+
+.location > p {
+  margin: 0 0 0 0.75em;
+}
+
+/* ========== EXPLORE ========== */
+
+.explore {
+  background-color: getValue("bg-light");
+  flex-direction: column;
+  align-items: center;
+}
+
+.explore > h1 {
+  text-align: center;
+  margin: 0;
+  padding-top: 0.625em;
+  width: 75%;
+  font-size: getValue("xl");
+}
+
+.explore > p {
+  margin: 0;
+  padding: 0.625em 0 1.625em 0;
+  width: 90%;
+  text-align: center;
+  font-size: getValue("sm");
+}
+
+.cta {
+  padding: 0.9em 1.2em;
+  margin-bottom: 2em;
+  border-radius: 50px;
+  color: getValue("white");
+  font-size: getValue("sm");
+  border: none;
+  outline: none;
+  @include transitionButton;
+  @include linear-gradient;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ========== STEPS ========== */
+
+.steps {
+  background-color: getValue("white");
+}
+
+.steps__menu {
+  @include laptop {
+    flex-direction: row;
+    justify-content: center;
+    padding-bottom: 3.5em;
+  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.625em;
+  padding: 1.75em 0;
+
+  &__number {
+    position: relative;
+    left: -0.65em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: getValue("white");
+    background-color: getValue("primary-color");
+    height: 1.55em;
+    width: 1.55em;
+    border-radius: 50%;
+  }
+  &__item {
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    background-color: getValue("bg-light");
+    border: none;
+    width: 80%;
+    padding: 1.5em 0;
+    box-shadow: 0 8px 10px -2px getValue("grey");
+    transition: 0.3s ease-in-out;
+    @include tablet {
+      max-width: 600px;
+    }
+    @include laptop {
+      width: 30%;
+      max-width: 300px;
+    }
+    &:hover {
+      background-color: color.scale(getValue("primary-color"), $lightness: 70%);
+      box-shadow: 0 8px 10px 2px getValue("grey");
+      .fas {
+        color: getValue("primary-color");
+        opacity: 1;
+      }
+    }
+    .fas {
+      @include laptop {
+        margin-left: 1em;
+      }
+      font-size: getValue("md");
+      opacity: 0.7;
+      margin-left: 2em;
+      transition: all 0.3s ease-in-out;
+    }
+    .text-item {
+      font-size: getValue("sm");
+      font-weight: bold;
+      padding-left: 2em;
+    }
+  }
+}
+
+/* ========== RESTAURANTS ========== */
+
+.restaurants {
+  background-color: getValue("bg-light");
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2em;
+  padding-top: 1.75em;
+  padding-bottom: 4em;
+  @include laptop {
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
+}
+
+.card {
+  position: relative;
+  height: 17em;
+  @include tablet {
+    max-width: 680px;
+  }
+  @include laptop {
+    width: 45%;
+    max-width: 650px;
+  }
+  @include box-shadow;
+  &__new-tag {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    padding: 0.375em 0.625em;
+    width: fit-content;
+    background-color: getValue("tertiary-color");
+    color: color.scale(getValue("tertiary-color"), $lightness: -60%);
+    font-weight: bold;
+    font-size: getValue("sm");
+  }
+  &__picture {
+    height: 70%;
+    width: 100%;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    object-fit: cover;
+  }
+  &__details {
+    margin-top: -0.3em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30%;
+    width: 100%;
+    color: getValue("black");
+    &__text {
+      padding-left: 1em;
+      h3 {
+        padding-bottom: 0.225em;
+      }
+      p {
+        padding-top: 0.225em;
+      }
+    }
+    .far,
+    .fas {
+      font-size: getValue("lg");
+      @include laptop {
+        font-size: getValue("xl");
+      }
+    }
+    &__hearts {
+      @include heart-animation;
+    }
+  }
+}
+
+/* ========== FOOTER ========== */
+
+footer > figure {
+  margin: auto;
+  @include laptop {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.footer {
+  background-color: getValue("light-black");
+  padding-bottom: 1em;
+  &__img {
+    width: 30%;
+    @include tablet {
+      max-width: 230px;
+    }
+    filter: invert(94%) sepia(100%) saturate(0%) hue-rotate(210deg)
+      brightness(106%) contrast(109%);
+    padding: 1.9em 0 0.4em 1.5em;
+  }
+  &__ul {
+    color: getValue("white");
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+    list-style: none;
+    padding-left: 1.5em;
+    @include laptop {
+      flex-direction: row;
+      justify-content: center;
+      gap: 4em;
+      padding-left: 0;
+    }
+    &__item {
+      transition: color 0.3s ease-in-out;
+      width: fit-content;
+      .fas {
+        padding-right: 0.75em;
+      }
+      .fa-handshake {
+        font-size: smaller;
+        transform: rotate(-35deg);
+      }
+      &:hover {
+        color: getValue("primary-color");
+      }
+    }
+  }
+}

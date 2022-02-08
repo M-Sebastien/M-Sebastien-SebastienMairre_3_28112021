@@ -1,0 +1,8 @@
+@import "./variables";
+
+@function getValue($property) {
+  @if map-has-key($design-system, $property) {
+    @return map-get($design-system, $property);
+  }
+  @error "ERREUR SUR LA VARIABLE #{$property}";
+}
